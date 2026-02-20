@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './App.css'
 import Footer from './components/Footer/Footer'
 import Discord from './components/Discord/Discord'
@@ -18,31 +17,25 @@ import CustomScrollbar from './components/CustomScrollbar/CustomScrollbar';
 import LandingPage from './pages/LandingPage'
 import Hackatron2 from './components/Hackatron2/Hackatron2'
 import Prizes from './components/Prizes/Prizes'
-import Preloader from './components/Preloader/Preloader'
-
 function App() {
-  const [loading, setLoading] = useState(true);
 
   return (
     <>
-      {loading && <Preloader onComplete={() => setLoading(false)} />}
-      <div className={`transition-opacity duration-700 ${loading ? 'opacity-0 h-0 overflow-hidden' : 'opacity-100'}`}>
-        <CustomScrollbar />
-        {/* <CursorFollower /> */}
-        <Navbar />
-        <LandingPage />
-        <About />
-        <Wihts />
-        <Hackatron2 />
-        <Prizes />
-        <Tracks />
-        <Sponsors />
-        <PastSponsors />
-        <Cp />
-        <Faq />
-        <Discord />
-        <Footer />
-      </div>
+      <CustomScrollbar />
+      {/* <CursorFollower /> */}
+      <Navbar />
+      <LandingPage />
+      <About/>
+      <Wihts/>
+      <Hackatron2 />
+      <Prizes />
+      <Tracks />
+      <Sponsors />
+      <PastSponsors />
+      {/* <Cp /> */}
+      <Faq />
+      <Discord />
+      <Footer />
     </>
   )
 }
