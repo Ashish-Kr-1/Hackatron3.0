@@ -1,89 +1,68 @@
+/* Preloader.jsx */
 import React, { useState, useEffect } from 'react';
 import './Preloader.css';
 
 const Preloader = ({ onComplete }) => {
-    const [phase, setPhase] = useState('typing');   // 'typing' | 'closing' | 'flash' | 'opening' | 'done'
     const [text, setText] = useState('');
-    const [flashActive, setFlashActive] = useState(false);
-
-    const fullText = 'HACKATRON 3.0';
+    const fullText = "HACKATRON 3.0";
+    const [shuttersClosed, setShuttersClosed] = useState(false);
+    const [showFlash, setShowFlash] = useState(false);
 
     useEffect(() => {
-        // Phase 1 — typewriter
-        let i = 0;
+        let currentIndex = 0;
         const typeInterval = setInterval(() => {
-            setText(fullText.slice(0, i + 1));
-            i++;
-            if (i === fullText.length) {
+            if (currentIndex <= fullText.length) {
+                setText(fullText.slice(0, currentIndex));
+                currentIndex++;
+            } else {
                 clearInterval(typeInterval);
-                // Phase 2 — close shutters after short pause
-                setTimeout(() => setPhase('closing'), 400);
+
+                // Typing done -> Trigger Legendary Sequence
+                setTimeout(() => {
+                    setShuttersClosed(true);
+
+                    // Flash happens right when shutters meet (approx 400ms into transition)
+                    setTimeout(() => setShowFlash(true), 400);
+
+                    // Wait for flash/shutter animations then finish
+                    setTimeout(onComplete, 1000);
+                }, 300);
             }
-        }, 80);
+        }, 50);
 
         return () => clearInterval(typeInterval);
     }, []);
 
-    useEffect(() => {
-        if (phase === 'closing') {
-            // Phase 3 — flash when shutters meet, then open
-            setTimeout(() => {
-                setFlashActive(true);
-                setPhase('flash');
-            }, 450);
-        }
-        if (phase === 'flash') {
-            setTimeout(() => {
-                setPhase('opening');
-                setFlashActive(false);
-            }, 700);
-        }
-        if (phase === 'opening') {
-            // Phase 4 — call onComplete after shutters open
-            setTimeout(() => {
-                setPhase('done');
-                onComplete && onComplete();
-            }, 600);
-        }
-    }, [phase]);
-
-    if (phase === 'done') return null;
-
     return (
-        <div
-            className="fixed inset-0 flex items-center justify-center z-[9999] overflow-hidden"
-            style={{ background: '#020420' }}
-        >
-            {/* Main title */}
-            <div className="relative z-10 flex flex-col items-center gap-4 select-none">
-                <h1
-                    className="text-3xl md:text-5xl tracking-widest font-black text-transparent bg-clip-text bg-gradient-to-r from-[#5FA6FF] via-white to-[#ec53b0] animate-pulse"
+        <div className="fixed inset-0 z-[9999] bg-[#020420] flex flex-col items-center justify-center overflow-hidden font-gamefreak text-white select-none">
+
+            {/* Background Texture/Grid (Optional subtle detail) */}
+            <div className="absolute inset-0 opacity-10 pointer-events-none"
+                style={{ backgroundImage: 'linear-gradient(#1a202c 1px, transparent 1px), linear-gradient(90deg, #1a202c 1px, transparent 1px)', backgroundSize: '40px 40px' }}>
+            </div>
+
+            {/* Main Content Container */}
+            <div className={`flex flex-col items-center gap-6 transition-all duration-300 ${shuttersClosed ? 'opacity-0 scale-90' : 'opacity-100 scale-100'} z-10`}>
+
+                {/* Legendary Text with Multiple Glow Layers */}
+                <h1 className="text-3xl md:text-5xl tracking-widest font-black text-transparent bg-clip-text bg-gradient-to-r from-[#5FA6FF] via-white to-[#ec53b0] animate-pulse"
                     style={{
                         filter: 'drop-shadow(0 0 20px rgba(95, 166, 255, 1)) drop-shadow(0 0 50px rgba(236, 83, 176, 0.8)) drop-shadow(0 0 80px rgba(255, 255, 255, 0.8))'
-                    }}
-                >
+                    }}>
                     {text}
                 </h1>
 
-                {/* Blinking cursor while typing */}
-                {phase === 'typing' && (
-                    <span className="inline-block w-[3px] h-8 bg-[#5FA6FF] animate-pulse ml-1" />
-                )}
-
-                {/* Subtext */}
-                <p className="font-vt323 text-[#ec53b0] text-sm tracking-[0.4em] opacity-70">
-                    LOADING SYSTEM...
-                </p>
             </div>
 
-            {/* Legendary flash line */}
-            <div className={`legendary-flash ${flashActive ? 'active' : ''}`} />
+            {/* Shutter Transition Overlay */}
+            <div className={`absolute inset-0 z-50 pointer-events-none ${shuttersClosed ? 'shutters-active' : ''}`}>
+                <div className="shutter-top"></div>
+                <div className="shutter-bottom"></div>
 
-            {/* Top shutter */}
-            <div className={`shutter-top ${phase === 'closing' || phase === 'flash' ? 'close' : phase === 'opening' ? 'open' : ''}`} />
+                {/* The Legendary Flash Line */}
+                {showFlash && <div className="legendary-overlay"></div>}
+            </div>
 
-            {/* Bottom shutter */}
-            <div className={`shutter-bottom ${phase === 'closing' || phase === 'flash' ? 'close' : phase === 'opening' ? 'open' : ''}`} />
         </div>
     );
 };

@@ -1,3 +1,11 @@
+/* Preloader.css */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.font-gamefreak {
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* Enhanced Shutters */
 .shutter-top {
     position: absolute;
     top: 0;
@@ -12,6 +20,7 @@
     transform: translateY(-100%);
     transition: transform 0.4s ease-in;
     z-index: 100;
+    /* Legendary Glow on bottom edge */
     box-shadow: 0 0 20px #0384fc, 0 0 40px rgba(3, 132, 252, 0.5);
     border-bottom: 2px solid #5FA6FF;
 }
@@ -30,64 +39,49 @@
     transform: translateY(100%);
     transition: transform 0.4s ease-in;
     z-index: 100;
+    /* Legendary Glow on top edge */
     box-shadow: 0 0 20px #ec53b0, 0 0 40px rgba(236, 83, 176, 0.5);
     border-top: 2px solid #ec53b0;
 }
 
-.shutter-top.close {
-    transform: translateY(0);
+/* Active State */
+.shutters-active .shutter-top {
+    transform: translateY(0%);
 }
 
-.shutter-bottom.close {
-    transform: translateY(0);
+.shutters-active .shutter-bottom {
+    transform: translateY(0%);
 }
 
-.shutter-top.open {
-    transform: translateY(-100%);
-    transition: transform 0.5s ease-out;
-}
-
-.shutter-bottom.open {
-    transform: translateY(100%);
-    transition: transform 0.5s ease-out;
-}
-
-/* Central flash when shutters meet */
-.legendary-flash {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, transparent, #5FA6FF, #ffffff, #ec53b0, transparent);
-    z-index: 200;
-    opacity: 0;
-    pointer-events: none;
-}
-
+/* Legendary Flash when shutters meet */
 @keyframes legendary-flash {
     0% {
         opacity: 0;
-    }
-
-    40% {
-        opacity: 0;
+        transform: scaleX(0);
     }
 
     50% {
         opacity: 1;
-    }
-
-    70% {
-        opacity: 1;
+        transform: scaleX(1);
+        box-shadow: 0 0 50px white;
     }
 
     100% {
         opacity: 0;
+        transform: scaleX(1.5);
     }
 }
 
-.legendary-flash.active {
-    animation: legendary-flash 1.2s ease-in-out forwards;
+.legendary-overlay {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    /* Thin line of intense light */
+    background: white;
+    transform: translateY(-50%);
+    z-index: 101;
+    animation: legendary-flash 0.6s ease-out forwards;
+    pointer-events: none;
 }
