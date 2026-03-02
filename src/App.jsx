@@ -11,7 +11,6 @@ import About from './components/AboutUs/About'
 import Wihts from './components/Wihts/Wihts'
 import PastSponsors from './components/Sponsors/PastSponsors'
 import Faq from './components/Faq/Faq'
-import ContactUs from './components/ContactUs/ContactUs'
 import Cp from './components/Cp/Cp'
 import Venue from './components/Venue/Venue'
 import CustomScrollbar from './components/CustomScrollbar/CustomScrollbar';
@@ -45,7 +44,6 @@ function App() {
       <PastSponsors />
       {/* <Cp /> */}
       <Faq />
-      <ContactUs />
       <Discord />
       <Footer />
     </>

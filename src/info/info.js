@@ -8,7 +8,7 @@ export const infoConfig = {
     {
       id: "2",
       data:
-        "HnCC also manages the official CodeChef Chapter of BIT Sindri, aimed at promoting a competitive programming culture on campus. The chapter provides students with opportunities to strengthen their problem-solving abilities, participate in coding challenges, and consistently improve their algorithmic and logical thinking skills.",
+        "HnCC also manages the official Geeks for Geeks chapter of BIT Sindri, aimed at promoting a competitive programming culture on campus. The chapter provides students with opportunities to strengthen their problem-solving abilities, participate in coding challenges, and consistently improve their algorithmic and logical thinking skills.",
     },
   ],
 

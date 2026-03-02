@@ -83,6 +83,21 @@ function Footer() {
                                             <div className="w-[70%] h-[75%] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 peer-hover:bg-white z-0"></div>
                                         </a>
                                     </div>
+
+                                    {/* CONTACT DETAILS */}
+                                    <h1 className="footerheading footerelements text-center m-0 mt-6 md:mt-8 mb-1 md:mb-2 text-heading-footer drop-shadow-md">
+                                        CONTACT US
+                                    </h1>
+                                    <div className="flex flex-col mt-2 md:mt-3 gap-2">
+                                        <div className="flex justify-center items-center gap-2 text-center">
+                                            <span className="text-[#BEBEBE] text-sm md:text-base font-medium">Anshuman:</span>
+                                            <a href="tel:+918409370501" className="text-[#00FF00] hover:text-white transition-colors text-xs md:text-sm font-mono">+91 84093 70501</a>
+                                        </div>
+                                        <div className="flex justify-center items-center gap-2 text-center">
+                                            <span className="text-[#BEBEBE] text-sm md:text-base font-medium">Anuj:</span>
+                                            <a href="tel:+916205811362" className="text-[#00FF00] hover:text-white transition-colors text-xs md:text-sm font-mono">+91 62058 11362</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
